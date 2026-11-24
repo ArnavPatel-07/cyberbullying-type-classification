@@ -2,7 +2,7 @@
 
 Multiclass NLP (Natural Language Processing) mini project: classify a tweet into the **type** of cyberbullying it contains, using classical machine learning, deep learning and fine-tuned transformer models.
 
-**Live demo:** [Hugging Face Space](https://huggingface.co/spaces/arnav-dev-01/safetext-cyberbullying-detector) &nbsp;|&nbsp; **Model weights:** [Hugging Face model page](MODEL_LINK)
+**Live demo:** [Hugging Face Space](https://huggingface.co/spaces/arnav-dev-01/safetext-cyberbullying-detector) &nbsp;|&nbsp; **Model weights:** [Hugging Face model page](https://huggingface.co/arnav-dev-01/cyberbullying-distilbert)
 
 > **Content warning:** the dataset contains real tweets with slurs, insults and other offensive language. Examples shown in this repository are quoted for analysis only.
 
@@ -283,7 +283,7 @@ Tested on Kaggle with Python 3.13, PyTorch 2.11 and transformers 5.20.
 └── LICENSE
 ```
 
-Not included: the raw dataset (download from Kaggle) and the trained model weights (about 270 MB for DistilBERT, too large for a normal GitHub file). The saved DistilBERT classifier is available on Hugging Face: [model page](MODEL_LINK).
+Not included: the raw dataset (download from Kaggle) and the trained model weights (about 270 MB for DistilBERT, too large for a normal GitHub file). The saved DistilBERT classifier is available on Hugging Face: [model page](https://huggingface.co/arnav-dev-01/cyberbullying-distilbert).
 
 ---
 
@@ -301,7 +301,7 @@ The online demo (`app/space/`) is a small Gradio app. The first request after th
 
 `app/website/` is a FastAPI app serving a project website (background on cyberbullying, project overview, interactive results chart and a live classifier).
 
-1. Download the four model files (`config.json`, `model.safetensors`, `tokenizer.json`, `tokenizer_config.json`) from the [model page](MODEL_LINK) into `app/website/model/`.
+1. Download the four model files (`config.json`, `model.safetensors`, `tokenizer.json`, `tokenizer_config.json`) from the [model page](https://huggingface.co/arnav-dev-01/cyberbullying-distilbert) into `app/website/model/`.
 2. From inside `app/website/`:
 
 ```bash
