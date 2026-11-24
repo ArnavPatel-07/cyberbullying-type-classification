@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SafeText | Cyberbullying Type Detection</title>
+    <meta name="description"
+        content="NLP mini project: detecting 6 types of cyberbullying in tweets with machine learning and transformers.">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+
+    <header class="nav">
+        <a href="#top" class="logo">Safe<span>Text</span></a>
+        <nav>
+            <a href="#about">Why it matters</a>
+            <a href="#project">Project</a>
+            <a href="#results">Results</a>
+            <a href="#demo">Live demo</a>
+            <a href="#team">Team</a>
+        </nav>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <p class="eyebrow">NLP (Natural Language Processing) Mini Project &middot; Experiment 9</p>
+            <h1>Teaching machines to spot <span class="grad">cyberbullying</span></h1>
+            <p class="lead">We trained and compared 13 models on 47,692 tweets to tell apart six categories of online
+                abuse. Type a message below the fold and watch the model decide.</p>
+            <div class="cta">
+                <a class="btn primary" href="#demo">Try the detector</a>
+                <a class="btn ghost" href="#results">See the results</a>
+            </div>
+            <div class="stats">
+                <div class="stat"><b data-count="47692">0</b><span>tweets collected</span></div>
+                <div class="stat"><b data-count="6">0</b><span>classes</span></div>
+                <div class="stat"><b data-count="13">0</b><span>models compared</span></div>
+                <div class="stat"><b data-count="89" data-suffix="%">0</b><span>macro-F1 (best, test)</span></div>
+            </div>
+        </section>
+
+        <section id="about" class="reveal">
+            <h2>Why cyberbullying matters</h2>
+            <p class="sub">Cyberbullying is the use of digital platforms to harass, demean or threaten someone. Unlike a
+                playground, it follows people home, spreads in seconds and can stay online for years.</p>
+            <div class="grid3">
+                <div class="card">
+                    <div class="ico">24/7</div>
+                    <h3>It never switches off</h3>
+                    <p>Messages reach a person on their own phone, at any hour, in front of a large audience.</p>
+                </div>
+                <div class="card">
+                    <div class="ico">&#9888;</div>
+                    <h3>Real harm</h3>
+                    <p>Targets often report stress, anxiety, isolation and falling grades. Hate aimed at who someone is
+                        cuts deepest.</p>
+                </div>
+                <div class="card">
+                    <div class="ico">&#9881;</div>
+                    <h3>Too much to read</h3>
+                    <p>Platforms handle millions of posts a day. Automatic detection helps human moderators find the
+                        worst content first.</p>
+                </div>
+            </div>
+
+            <h3 class="mt">The six categories our model recognises</h3>
+            <div class="chips">
+                <div class="chip"><b>Age</b>Abuse targeting how young or old someone is.</div>
+                <div class="chip"><b>Ethnicity</b>Abuse targeting race, colour or origin.</div>
+                <div class="chip"><b>Gender</b>Sexist or gender-based harassment.</div>
+                <div class="chip"><b>Religion</b>Abuse targeting someone's faith.</div>
+                <div class="chip"><b>Other cyberbullying</b>Insults and harassment that fit none of the above.</div>
+                <div class="chip ok"><b>Not cyberbullying</b>Normal, harmless messages.</div>
+            </div>
+
+            <div class="help">
+                <h3>If this is happening to you</h3>
+                <ul>
+                    <li><b>Do not reply.</b> Take screenshots with dates and usernames, then block the account.</li>
+                    <li><b>Tell someone you trust:</b> a friend, family member or teacher.</li>
+                    <li><b>Report it in India:</b> file a complaint at <a href="https://cybercrime.gov.in"
+                            target="_blank" rel="noopener">cybercrime.gov.in</a>, or call the cybercrime helpline
+                        <b>1930</b>.</li>
+                    <li><b>Children and teens:</b> Childline <b>1098</b> is free and open 24/7. In an emergency call
+                        <b>112</b>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="project" class="reveal">
+            <h2>What we built</h2>
+            <p class="sub">A full text-classification pipeline, from raw tweets to a deployed model.</p>
+            <div class="flow">
+                <div class="step"><i>1</i><b>Dataset</b><span>Kaggle "Cyberbullying Classification": 47,692 tweets, 6
+                        classes</span></div>
+                <div class="arrow">&rarr;</div>
+                <div class="step"><i>2</i><b>Cleaning</b><span>Removed links, @mentions, duplicates and conflicting
+                        labels: 43,711 left</span></div>
+                <div class="arrow">&rarr;</div>
+                <div class="step"><i>3</i><b>Split</b><span>Stratified 80/10/10 into 34,968 train, 4,371 validation,
+                        4,372 test</span></div>
+                <div class="arrow">&rarr;</div>
+                <div class="step"><i>4</i><b>Models</b><span>Classical ML, BiLSTM and four transformers</span></div>
+                <div class="arrow">&rarr;</div>
+                <div class="step"><i>5</i><b>Evaluate</b><span>Macro-F1 on a test set used only once</span></div>
+            </div>
+            <div class="grid3">
+                <div class="card">
+                    <h3>Classical ML</h3>
+                    <p>TF-IDF (term frequency-inverse document frequency) features with Logistic Regression, Naive
+                        Bayes, SVM (support vector machine), Random Forest, XGBoost and a voting ensemble.</p>
+                </div>
+                <div class="card">
+                    <h3>Deep learning</h3>
+                    <p>A BiLSTM (bidirectional long short-term memory) network with attention, averaged over 3 random
+                        seeds.</p>
+                </div>
+                <div class="card">
+                    <h3>Transformers</h3>
+                    <p>DistilBERT, BERT, RoBERTa and BERTweet, each fine-tuned 3 times with different seeds.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="reveal">
+            <h2>Results</h2>
+            <p class="sub">Test-set macro-F1: the average of the per-class F1 scores, so every category counts equally.
+                Transformer scores are the mean of 3 runs.</p>
+            <div class="tabs"><button class="tab on" data-m="test">Test set</button><button class="tab"
+                    data-m="val">Validation set</button></div>
+            <div id="chart" class="chart"></div>
+            <div class="grid3 mt">
+                <div class="card">
+                    <h3>Transformers tie</h3>
+                    <p>BERTweet, RoBERTa, DistilBERT and BERT land within about 0.5 points of each other, which is
+                        inside the test set's sampling error.</p>
+                </div>
+                <div class="card">
+                    <h3>Small edge over classical</h3>
+                    <p>The best transformers beat the best classical model (LinearSVM with word and character features)
+                        by only about 1.2 points.</p>
+                </div>
+                <div class="card">
+                    <h3>Why DistilBERT is deployed</h3>
+                    <p>It is about half the size and trains in about half the time, for roughly 0.2 points less than the
+                        top score.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="reveal">
+            <h2>Live demo</h2>
+            <p class="sub">The deployed model is our fine-tuned DistilBERT. Type or paste a tweet-style message.</p>
+            <div class="demo">
+                <textarea id="t" maxlength="1000" placeholder="Type a message to classify..."></textarea>
+                <div class="ex">Try:
+                    <a data-ex="Women belong in the kitchen, not in engineering.">gender</a>
+                    <a data-ex="Had a great day at the park with friends!">harmless</a>
+                    <a data-ex="You are so ugly and dumb, nobody likes you.">other</a>
+                </div>
+                <button id="go" class="btn primary">Classify</button>
+                <div id="out" class="out"></div>
+            </div>
+            <p class="warn">Educational demo only. The model makes mistakes, especially between "other cyberbullying"
+                and "not cyberbullying". Never use it to make real moderation decisions about a person.</p>
+        </section>
+
+        <section class="reveal">
+            <h2>Limitations and ethics</h2>
+            <div class="grid3">
+                <div class="card">
+                    <h3>Noisy labels</h3>
+                    <p>192 test tweets were misclassified by every model we trained. Many look mislabelled in the
+                        dataset itself, which caps the achievable accuracy.</p>
+                </div>
+                <div class="card">
+                    <h3>English tweets only</h3>
+                    <p>The model has not seen Hinglish or other code-mixed text, which is common in India. This is our
+                        main future-work direction.</p>
+                </div>
+                <div class="card">
+                    <h3>Humans stay in the loop</h3>
+                    <p>Sarcasm, reclaimed words and friendly banter confuse models. A human should review anything that
+                        affects a person.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="reveal">
+            <h2>Team</h2>
+            <p class="sub">UPES Dehradun &middot; Faculty: Dr. Sahinur Rahman Laskar</p>
+            <div class="team">
+                <div class="m">
+                    <div class="av">AS</div><b>Abheeshek Sinha</b><span>R2142235190</span>
+                </div>
+                <div class="m">
+                    <div class="av">AP</div><b>Arnav Patel</b><span>R2142231597</span>
+                </div>
+                <div class="m">
+                    <div class="av">AS</div><b>Amit Singh</b><span>R2142232091</span>
+                </div>
+                <div class="m">
+                    <div class="av">YA</div><b>Yash Aggarwal</b><span>R2142231601</span>
+                </div>
+                <div class="m">
+                    <div class="av">SK</div><b>Shashwat Kashyap</b><span>R2142231570</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>Built with Python, PyTorch, Hugging Face Transformers and FastAPI &middot; NLP Mini Project, UPES Dehradun
+    </footer>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
