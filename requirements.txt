@@ -1,0 +1,9 @@
+# Libraries used by the notebook (it was run on Kaggle, where most are pre-installed)
+numpy
+scipy
+pandas
+scikit-learn
+xgboost
+matplotlib
+torch
+transformers>=5.0,<6.0
