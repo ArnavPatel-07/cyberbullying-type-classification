@@ -2,6 +2,8 @@
 
 Multiclass NLP (Natural Language Processing) mini project: classify a tweet into the **type** of cyberbullying it contains, using classical machine learning, deep learning and fine-tuned transformer models.
 
+**Live demo:** [Hugging Face Space](https://huggingface.co/spaces/arnav-dev-01/safetext-cyberbullying-detector) &nbsp;|&nbsp; **Model weights:** [Hugging Face model page](MODEL_LINK)
+
 > **Content warning:** the dataset contains real tweets with slurs, insults and other offensive language. Examples shown in this repository are quoted for analysis only.
 
 ## Team
@@ -245,7 +247,7 @@ The experiments were run in a Kaggle notebook.
 To run locally instead, install the libraries below and change the data path in the loading cell:
 
 ```bash
-pip install pandas numpy scikit-learn xgboost matplotlib torch "transformers>=5"
+pip install -r requirements.txt
 ```
 
 Tested on Kaggle with Python 3.13, PyTorch 2.11 and transformers 5.20.
@@ -266,19 +268,52 @@ Tested on Kaggle with Python 3.13, PyTorch 2.11 and transformers 5.20.
 │   ├── all_results.csv                      # every run, every metric
 │   └── preds/                               # saved transformer predictions (val and test)
 ├── figures/
-│   └── confusion_matrix_bertweet_test.png
-└── app/                                     # web demo (in progress)
+│   ├── confusion_matrix_bertweet_test.png
+│   └── demo_screenshot.png
+├── app/
+│   ├── website/                             # full FastAPI website (runs locally)
+│   │   ├── main.py
+│   │   ├── requirements.txt
+│   │   └── static/                          # index.html, style.css, script.js
+│   └── space/                               # Gradio demo deployed on Hugging Face
+│       ├── app.py
+│       └── requirements.txt
+├── requirements.txt                         # libraries for the notebook
+├── .gitignore
+└── LICENSE
 ```
 
-Not included: the raw dataset (download from Kaggle) and the trained model weights (about 270 MB for DistilBERT, too large for a normal GitHub file). The saved DistilBERT classifier is available here: [TODO: add Hugging Face or Drive link].
+Not included: the raw dataset (download from Kaggle) and the trained model weights (about 270 MB for DistilBERT, too large for a normal GitHub file). The saved DistilBERT classifier is available on Hugging Face: [model page](MODEL_LINK).
 
 ---
 
 ## 11. Web demo
 
-In progress. A FastAPI web app will load the saved DistilBERT model, take a comment and show the predicted class with confidence scores. DistilBERT was chosen for the demo because it is smaller (about 270 MB versus 440 to 540 MB for the others) and trains in about half the time, at a cost of about 0.2 points of macro-F1 on the test set compared with the best transformers.
+The deployed model is the fine-tuned DistilBERT. DistilBERT was chosen for the demo because it is smaller (about 270 MB versus 440 to 540 MB for the others) and trains in about half the time, at a cost of about 0.2 points of macro-F1 on the test set compared with the best transformers.
 
-[TODO: add demo link and screenshot]
+**Online demo:** https://huggingface.co/spaces/arnav-dev-01/safetext-cyberbullying-detector
+
+![Demo screenshot](figures/demo_screenshot.png)
+
+The online demo (`app/space/`) is a small Gradio app. The first request after the Space has been idle can take up to a minute while it wakes up. It is an educational demo and must not be used for real moderation decisions.
+
+### Run the full website locally
+
+`app/website/` is a FastAPI app serving a project website (background on cyberbullying, project overview, interactive results chart and a live classifier).
+
+1. Download the four model files (`config.json`, `model.safetensors`, `tokenizer.json`, `tokenizer_config.json`) from the [model page](MODEL_LINK) into `app/website/model/`.
+2. From inside `app/website/`:
+
+```bash
+python -m venv venv
+venv\Scripts\activate          # on macOS/Linux: source venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app
+```
+
+3. Open http://127.0.0.1:8000.
+
+The app applies the same text cleaning as training before predicting. Use `transformers` 5.x, the version the model was saved with.
 
 ---
 
@@ -293,7 +328,13 @@ In progress. A FastAPI web app will load the saved DistilBERT model, take a comm
 
 ---
 
-## 13. References
+## 13. License
+
+Released under the MIT License (see `LICENSE`). The dataset and the pretrained models keep their own licenses; see their pages.
+
+---
+
+## 14. References
 
 - Dataset: *Cyberbullying Classification*, Kaggle (andrewmvd).
 - Devlin et al., *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*, 2019 (arXiv:1810.04805).
