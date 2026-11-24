@@ -1,0 +1,21 @@
+# virtual environments and caches
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# model weights and large files (host these on Hugging Face instead)
+model/
+*.safetensors
+*.bin
+*.pt
+
+# raw data (license not checked, download from Kaggle instead)
+data/
+*.csv.zip
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
